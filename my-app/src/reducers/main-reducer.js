@@ -1,0 +1,19 @@
+import { normalize } from "normalizr";
+import { responce } from "../schemas/posts-schema";
+import { ACTIONS } from "../action-types";
+
+const initialState = ({
+	posts: [],
+	comments: [],
+	authors: []
+});
+
+export const mainReducer = (state = initialState, action) => {
+	switch (action.type) {
+		case ACTIONS.DESERIALIZE_POST:
+			var normalizedOrder = normalize(action.payload, responce);
+			return normalizedOrder.entities;
+		default:
+			return state;
+	}
+}
